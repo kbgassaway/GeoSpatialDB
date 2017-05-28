@@ -45,14 +45,19 @@ function createTable(data){
     cellText= document.createTextNode("Job Title");
     cell.appendChild(cellText);
     row.appendChild(cell);
-    
+
     cell=document.createElement("th");
-    cellText= document.createTextNode("City");
+    cellText= document.createTextNode("Department");
     cell.appendChild(cellText);
     row.appendChild(cell);
     
     cell=document.createElement("th");
-    cellText= document.createTextNode("Certification");
+    cellText= document.createTextNode("Salary");
+    cell.appendChild(cellText);
+    row.appendChild(cell);
+    
+    cell=document.createElement("th");
+    cellText= document.createTextNode("Office");
     cell.appendChild(cellText);
     row.appendChild(cell);
 
@@ -84,14 +89,19 @@ function createTable(data){
         row.appendChild(cell);
 
         //last updated
-        console.log(data[prop].city);
+        console.log(data[prop].department);
         cell = document.createElement("td");
-        cell.textContent = data[prop].city;
+        cell.textContent = data[prop].department;
         row.appendChild(cell);
 
-        console.log(data[prop].cert_name);
+        console.log(data[prop].salary);
         cell = document.createElement("td");
-        cell.textContent = data[prop].cert_name;
+        cell.textContent = data[prop].salary;
+        row.appendChild(cell);
+
+        console.log(data[prop].office);
+        cell = document.createElement("td");
+        cell.textContent = data[prop].city;
         row.appendChild(cell);
 
         tBody.appendChild(row);

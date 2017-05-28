@@ -17,7 +17,7 @@ app.set('port', 8227);
 //HOME Page
 app.get('/', function(req,res,next){
     var context = {};
-    mysql.pool.query('SELECT first_name, last_name, job_title, city, cert_name FROM employees e LEFT JOIN offices o ON o.id = e.office LEFT JOIN employee_cert ec ON ec.eid=e.id LEFT JOIN certifications c ON c.id=ec.cid', function(err, rows, fields){
+    mysql.pool.query('SELECT first_name, last_name, job_title, department, salary, city FROM employees e LEFT JOIN offices o ON e.office= o.id; ', function(err, rows, fields){
         if(err){
             next(err);
             return;
@@ -29,7 +29,7 @@ app.get('/', function(req,res,next){
 //Loads the existing table, if one exists
 app.get('/loadTable', function(req,res,next){
     var context = {};
-    mysql.pool.query('SELECT first_name, last_name, job_title, city, cert_name FROM employees e LEFT JOIN offices o ON o.id = e.office LEFT JOIN employee_cert ec ON ec.eid=e.id LEFT JOIN certifications c ON c.id=ec.cid',function(err, rows, fields){
+    mysql.pool.query('SELECT first_name, last_name, job_title, department, salary, city FROM employees e LEFT JOIN offices o ON e.office= o.id; ',function(err, rows, fields){
         if(err){
             next(err);
             return;
