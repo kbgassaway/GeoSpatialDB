@@ -1,4 +1,31 @@
 document.addEventListener('DOMContentLoaded', loadInitialTable);
+document.addEventListener('DOMContentLoaded', submitButton);
+
+function submitButton(){
+    document.getElementById('inputSubmit').addEventListener('click', function(event){
+        var req = new XMLHttpRequest();
+
+        var fname=document.getElementById('first_name').value;
+        var lname=document.getElementById('last_name').value;
+        var job_title=document.getElementById('job_title').value;
+        var depart=document.getElementById('department').value;
+        var salary=document.getElementById('salary').value;
+        var office=document.getElementById('office').value;
+
+        req.open('GET','/insert?first_name=' +fname+'&last_name='+lname+ '&job_title='+job_title+ '&department='+depart+
+            '&salary='+salary+'&office='+office, true);
+        req.addEventListener("load", function(){
+            if(req.status>=200 && req.status < 400){
+                var response = JSON.parse(req.responseText);
+                createTable(response);
+            } else {
+                console.log("Error in network request: " + req.statusText);
+            }
+        });
+        req.send(null);
+        event.preventDefault();
+    });
+}
 
 function loadInitialTable(){
     var req = new XMLHttpRequest();

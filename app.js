@@ -32,10 +32,21 @@ app.get('/loadTable', function(req,res,next){
     mysql.pool.query('SELECT first_name, last_name, job_title, department, salary, city FROM employees e LEFT JOIN offices o ON e.office= o.id; ',function(err, rows, fields){
         if(err){
             next(err);
-            return;
+            return;                 
         }
         res.send(rows);
     });
+});
+
+app.get('/insert', function(req,res,next){
+    var fname=req.query.first_name;
+    var lname= req.query.last_name;
+    var jtitle= req.query.job_title;
+    var depart= req.query.department;
+    var salary= req.query.salary;
+    var office= req.query.office;
+console.log(fname,lname,jtitle,depart,salary,office);
+        
 });
 
 app.use(function(req,res){
