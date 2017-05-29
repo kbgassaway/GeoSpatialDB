@@ -44,9 +44,25 @@ app.get('/insert', function(req,res,next){
     var jtitle= req.query.job_title;
     var depart= req.query.department;
     var salary= req.query.salary;
-    var office= req.query.office;
-console.log(fname,lname,jtitle,depart,salary,office);
-        
+    var city= req.query.office;
+
+    console.log(fname,lname,jtitle,depart,salary,city);
+
+    mysql.pool.query("INSERT INTO employees(`first_name`,`last_name`,`job_title`,`department`,`salary`,`office`) VALUES (?,?,?,?,?,1)",
+        [fname,lname,jtitle,depart,salary], function(err, result){
+        if(err){
+            next(err);
+            return;
+        }
+        mysql.pool.query("SELECT first_name, last_name, job_title, department, salary, city FROM employees e LEFT JOIN offices o ON e.office= o.id", function(err, rows, fields){
+            if(err){
+                next(err);
+                return;
+            }
+            res.send(rows);
+        });    
+    });
+    
 });
 
 app.use(function(req,res){

@@ -11,6 +11,7 @@ function submitButton(){
         var depart=document.getElementById('department').value;
         var salary=document.getElementById('salary').value;
         var office=document.getElementById('office').value;
+        console.log(fname,lname,job_title,depart,salary,office);
 
         req.open('GET','/insert?first_name=' +fname+'&last_name='+lname+ '&job_title='+job_title+ '&department='+depart+
             '&salary='+salary+'&office='+office, true);
@@ -94,39 +95,39 @@ function createTable(data){
 //Create the body
     var tBody =document.createElement("tbody");
     tBody.setAttribute("id","tableBody");
-    console.log(data);
+    //console.log(data);
     for(var prop in data){
         //ID
-        console.log(data[prop].first_name);
+      //  console.log(data[prop].first_name);
         row = document.createElement("tr");
         cell = document.createElement("td");
         cell.textContent = data[prop].first_name;
         row.appendChild(cell);
 
         //first name
-        console.log(data[prop].last_name);
+      //  console.log(data[prop].last_name);
         cell = document.createElement("td");
         cell.textContent = data[prop].last_name;
         row.appendChild(cell);
 
         //last name
-        console.log(data[prop].job_title);
+      //  console.log(data[prop].job_title);
         cell = document.createElement("td");
         cell.textContent = data[prop].job_title;
         row.appendChild(cell);
 
         //last updated
-        console.log(data[prop].department);
+      //  console.log(data[prop].department);
         cell = document.createElement("td");
         cell.textContent = data[prop].department;
         row.appendChild(cell);
 
-        console.log(data[prop].salary);
+      //  console.log(data[prop].salary);
         cell = document.createElement("td");
         cell.textContent = data[prop].salary;
         row.appendChild(cell);
 
-        console.log(data[prop].office);
+      //  console.log(data[prop].office);
         cell = document.createElement("td");
         cell.textContent = data[prop].city;
         row.appendChild(cell);

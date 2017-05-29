@@ -7,5 +7,4 @@ LEFT JOIN certifications c ON c.id=ec.cid;
 
 
 --Select the employee data and the city the employee is associated with
-SELECT first_name, last_name, job_title, department, salary, city FROM employees e
-LEFT JOIN offices o ON e.office= o.id; 
+SELECT first_name, last_name, job_title, department, salary, city FROM employees e LEFT JOIN offices o ON e.office= o.id; 
