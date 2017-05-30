@@ -1,6 +1,5 @@
 var express = require('express');
 var mysql = require('./dbcon.js');
-var moments = require('moments');
 
 var app = express();
 var handlebars = require('express-handlebars').create({defaultLayout: 'main'});
@@ -64,6 +63,30 @@ app.get('/insert', function(req,res,next){
     });
     
 });
+
+//Loads the Employees Job Titles for the dynamic filter
+app.get('/loadJobTitles', function(req,res,next){
+    var context = {};
+    mysql.pool.query('SELECT DISTINCT job_title FROM employees',function(err, rows, fields){
+        if(err){
+            next(err);
+            return;
+        }
+        res.send(rows);
+    });
+});
+
+//Loads the Employees table by the selected job_title
+app.get('/fltrByJT', function(req,res,next){
+    mysql.pool.query('SELECT first_name, last_name, job_title FROM employees WHERE job_title=?', [req.query.job_title], function(err, row, fields){
+        if(err){
+            next(err);
+            return;
+        }
+        res.send(row);
+    });
+});
+
 
 app.use(function(req,res){
     res.type('text/plain');
