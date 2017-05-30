@@ -143,3 +143,59 @@ function createTable(data){
     wTable.setAttribute("border", "1pix");
 
 }
+
+
+document.addEventListener('DOMContentLoaded', loadJobTitlesFilter);
+
+//get unique job titles for the filter
+function loadJobTitlesFilter(){
+    var req = new XMLHttpRequest();
+    req.open('GET', '/loadJobTitles', true);
+    req.addEventListener("load", function(){
+        if(req.status >=200 && req.status < 400){
+            var response = JSON.parse(req.responseText);
+            if(response.length)
+                jobTitleOptions(response);
+        } else{
+            console.log("Error in network request: " + req.statusText);
+        }
+    });
+    req.send(null);
+    event.preventDefault();
+}
+
+//creates a dynamic list to filter employees by job title
+function jobTitleOptions(data){
+    var jobTitleFilter = document.getElementById("fltrByJobTitle");
+    for(var prop in data){
+        console.log(data[prop].job_title);
+        var option = document.createElement("option");
+        option.value = data[prop].job_title;
+        option.innerHTML = data[prop].job_title;
+        jobTitleFilter.appendChild(option);
+    }
+}
+
+
+document.addEventListener('DOMContentLoaded', filterEmployees);
+
+//filter the table by selected job title 
+function filterEmployees(){
+    document.getElementById('fltrByJobTitle').addEventListener('change', function(event){
+        var title = document.getElementById('fltrByJobTitle').value;
+	console.log(title);
+        var req = new XMLHttpRequest();
+        req.open('GET', '/fltrByJT?job_title='+ title, true);
+        req.addEventListener("load", function(){
+            if(req.status >=200 && req.status < 400){
+                var response = JSON.parse(req.responseText);
+                if(response.length)
+                    createTable(response);
+            } else{
+                console.log("Error in network request: " + req.statusText);
+            }
+        });
+        req.send(null);
+        event.preventDefault();
+    });
+}
